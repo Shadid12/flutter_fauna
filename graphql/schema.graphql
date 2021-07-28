@@ -1,0 +1,9 @@
+type Charecter {
+    name: String!
+    description: String!
+    picture: String
+}
+
+type Query {
+    listAllCharecters: [Charecter]
+}
