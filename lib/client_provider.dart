@@ -12,7 +12,7 @@ ValueNotifier<GraphQLClient> clientFor({
   );
 
   final AuthLink authLink = AuthLink(
-    getToken: () async => 'Bearer fnAEPAjy8QACRJ8iwZcuya2DbtsB6mesrDEgZ2-2',
+    getToken: () async => 'Bearer fnAEPkPcGaACRDpQid138kg4K4OxerZJDA-1ravd',
   );
 
   Link link = authLink.concat(httpLink);

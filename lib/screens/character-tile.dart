@@ -3,9 +3,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:todo_app/screens/edit.dart';
 
 
-String deleteCharecter = """
-  mutation DeleteCharecter(\$id: ID!) {
-    deleteCharecter(id: \$id) {
+String deletecharacter = """
+  mutation Deletecharacter(\$id: ID!) {
+    deleteCharacter(id: \$id) {
       _id
       name
     }
@@ -13,13 +13,13 @@ String deleteCharecter = """
 """;
 
 class CharacterTile extends StatelessWidget {
-  final charecter;
+  final character;
   final VoidCallback refetch;
   final VoidCallback updateParent;
 
   const CharacterTile({
     Key key, 
-    @required this.charecter, 
+    @required this.character, 
     @required this.refetch,
     this.updateParent,
   }) : super(key: key);
@@ -31,10 +31,10 @@ class CharacterTile extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
-            print(charecter['picture']);
+            print(character['picture']);
             return Mutation(
               options: MutationOptions(
-                document: gql(deleteCharecter),
+                document: gql(deletecharacter),
                 onCompleted: (dynamic resultData) {
                   print(resultData);
                   this.refetch();
@@ -52,23 +52,23 @@ class CharacterTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text(charecter['description']),
+                        Text(character['description']),
                         ElevatedButton(
-                          child: Text('Delete Charecter'),
+                          child: Text('Delete character'),
                           onPressed: () {
                             runMutation({
-                              'id': charecter['_id'],
+                              'id': character['_id'],
                             });
                             Navigator.pop(context);
                           },
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
-                          child: Text('Edit Charecter'),
+                          child: Text('Edit character'),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
-                                return EditCharecter(charecter: charecter);
+                                return EditCharacter(character: character);
                               }
                             ));
                           },
@@ -94,7 +94,7 @@ class CharacterTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(charecter['picture'])
+                  image: NetworkImage(character['picture'])
                 )
               ),
             ),
@@ -105,7 +105,7 @@ class CharacterTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    charecter['name'],
+                    character['name'],
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class CharacterTile extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    charecter['description'],
+                    character['description'],
                     style: TextStyle(
                       color: Colors.black87,
                     ),

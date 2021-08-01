@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/client_provider.dart';
-import 'package:todo_app/screens/charecter-list.dart';
+import 'package:todo_app/screens/character-list.dart';
 import 'package:todo_app/screens/new.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          '/': (_) => AllCharecters(),
+          '/': (_) => AllCharacters(),
           '/new': (_) => NewCharecter(),
         }
       ),

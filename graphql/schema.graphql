@@ -1,9 +1,9 @@
-type Charecter {
+type Character {
     name: String!
     description: String!
     picture: String
 }
 
 type Query {
-    listAllCharecters: [Charecter]
+    listAllCharacters: [Character]
 }

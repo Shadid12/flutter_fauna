@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:todo_app/screens/charecter-list.dart';
+import 'package:todo_app/screens/character-list.dart';
 
-String editCharecter = """
-mutation EditCharecter(\$name: String!, \$id: ID!, \$description: String!, \$picture: String!) {
-  updateCharecter(data: 
+String editCharacter = """
+mutation EditCharacter(\$name: String!, \$id: ID!, \$description: String!, \$picture: String!) {
+  updateCharacter(data: 
   { 
     name: \$name 
     description: \$description
@@ -18,24 +18,24 @@ mutation EditCharecter(\$name: String!, \$id: ID!, \$description: String!, \$pic
 }
 """;
 
-class EditCharecter extends StatelessWidget {
-  final charecter;
-  const EditCharecter({Key key, this.charecter}) : super(key: key);
+class EditCharacter extends StatelessWidget {
+  final character;
+  const EditCharacter({Key key, this.character}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Charecter'),
+        title: const Text('Edit Character'),
       ),
-      body: EditFormBody(charecter: this.charecter),
+      body: EditFormBody(Character: this.character),
     );
   }
 }
 
 class EditFormBody extends StatefulWidget {
-  final charecter;
-  EditFormBody({Key key, this.charecter}) : super(key: key);
+  final Character;
+  EditFormBody({Key key, this.Character}) : super(key: key);
 
   @override
   _EditFormBodyState createState() => _EditFormBodyState();
@@ -56,7 +56,7 @@ class _EditFormBodyState extends State<EditFormBody> {
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
             TextFormField(
-               initialValue: widget.charecter['name'],
+               initialValue: widget.Character['name'],
                 decoration: const InputDecoration(
                   icon: Icon(Icons.person),
                   labelText: 'Name *',
@@ -66,7 +66,7 @@ class _EditFormBodyState extends State<EditFormBody> {
                 }
             ),
             TextFormField(
-              initialValue: widget.charecter['description'],
+              initialValue: widget.Character['description'],
               decoration: const InputDecoration(
                 icon: Icon(Icons.person),
                 labelText: 'Description',
@@ -78,7 +78,7 @@ class _EditFormBodyState extends State<EditFormBody> {
               }
             ),
             TextFormField(
-              initialValue: widget.charecter['picture'],
+              initialValue: widget.Character['picture'],
               decoration: const InputDecoration(
                 icon: Icon(Icons.image),
                 labelText: 'Image Url',
@@ -90,11 +90,11 @@ class _EditFormBodyState extends State<EditFormBody> {
             SizedBox(height: 20),
             Mutation(
               options: MutationOptions(
-                document: gql(editCharecter),
+                document: gql(editCharacter),
                 onCompleted: (dynamic resultData) {
                   print(resultData);
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AllCharecters())
+                    MaterialPageRoute(builder: (context) => AllCharacters())
                   );
                 },
               ),
@@ -109,10 +109,10 @@ class _EditFormBodyState extends State<EditFormBody> {
                     onPressed: () {
                       
                       runMutation({
-                        'id': widget.charecter['_id'],
-                        'name': name != null ? name : widget.charecter['name'],
-                        'description': description != null ? description : widget.charecter['description'],
-                        'picture': picture != null ? picture : widget.charecter['picture'],
+                        'id': widget.Character['_id'],
+                        'name': name != null ? name : widget.Character['name'],
+                        'description': description != null ? description : widget.Character['description'],
+                        'picture': picture != null ? picture : widget.Character['picture'],
                       });
                     },
                   ),

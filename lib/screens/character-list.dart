@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:todo_app/screens/charecter-tile.dart';
+import 'package:todo_app/screens/character-tile.dart';
 
 
-String readCharecters = """
-query ListAllCharecters {
-  listAllCharecters(_size: 100) {
+String readCharacters = """
+query ListAllCharacters {
+  listAllCharacters(_size: 100) {
     data {
       _id
       name
@@ -18,8 +18,8 @@ query ListAllCharecters {
 """;
 
 
-class AllCharecters extends StatelessWidget {
-  const AllCharecters({Key key}) : super(key: key);
+class AllCharacters extends StatelessWidget {
+  const AllCharacters({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class AllCharecters extends StatelessWidget {
             floating: true,
             expandedHeight: 160.0,
             title: Text(
-              'Charecters',
+              'Characters',
               style: TextStyle(
                 fontWeight: FontWeight.w400, 
                 fontSize: 36,
@@ -52,17 +52,18 @@ class AllCharecters extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               Query(options: QueryOptions(
-                document: gql(readCharecters),
-                pollInterval: Duration(seconds: 120),
+                document: gql(readCharacters),
+                pollInterval: Duration(seconds: 600),
               ), 
               builder: (QueryResult result, { VoidCallback refetch, FetchMore fetchMore }) {
                 if (result.isLoading) {
                   return Text('Loading');
                 }
+                print('Data $result');
                 return Column(
                   children: [
-                    for (var item in result.data['listAllCharecters']['data'])
-                      CharacterTile(charecter: item, refetch: refetch),
+                    for (var item in result.data['listAllCharacters']['data'])
+                      CharacterTile(character: item, refetch: refetch),
                   ],
                 );
               })

@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:todo_app/screens/charecter-list.dart';
+import 'package:todo_app/screens/character-list.dart';
 
 String addCharecter = """
-  mutation CreateNewCharecter(\$data: CharecterInput!) {
-    createCharecter(data: \$data) {
+  mutation CreateNewCharecter(\$data: CharacterInput!) {
+    createCharacter(data: \$data) {
       _id
       name
       description
@@ -88,7 +88,7 @@ class _AddCharecterFormState extends State<AddCharecterForm> {
                   description = '';
                   imgUrl = '';
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AllCharecters())
+                    MaterialPageRoute(builder: (context) => AllCharacters())
                   );
                 },
               ), 
